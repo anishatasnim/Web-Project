@@ -1,0 +1,54 @@
+function valid()
+{
+if(document.chngpwd.pass.value=="")
+{
+alert("Old Password Filed is Empty !!");
+document.chngpwd.pass.focus();
+return false;
+}
+else if(document.chngpwd.npass.value=="")
+{
+alert("New Password Filed is Empty !!");
+document.chngpwd.npass.focus();
+return false;
+}
+else if(document.chngpwd.cnpass.value=="")
+{
+alert("Confirm Password Filed is Empty !!");
+document.chngpwd.cnpass.focus();
+return false;
+}
+else if(document.chngpwd.npass.value!= document.chngpwd.cnpass.value)
+{
+alert("Password and Confirm Password Field do not match  !!");
+document.chngpwd.cnpass.focus();
+return false;
+}
+return true;
+}
+</script>
+<?php
+
+session_start();
+include("../db/db.php");
+//include("../db/functions.php");
+ if(isset($_POST['Submit']))
+{
+ $pass=$_POST['pass'];
+ $userid=$_POST['userid'];
+ //$useremail=$_SESSION['login'];
+ $newpassword=$_POST['npass'];
+ $sql="SELECT pass FROM user where pass='$pass' && userid='$userid'";
+ $result=mysqli_query($conn,$sql);
+ $num=mysqli_fetch_array($conn,$sql);
+ 
+if($num>0)
+{
+ $conn=mysqli_query($conn,"update user set pass='.$npass'");
+     echo "Password Changed Successfully !!";
+}
+else
+{
+ echo "Old Password not match !!";
+}
+}
